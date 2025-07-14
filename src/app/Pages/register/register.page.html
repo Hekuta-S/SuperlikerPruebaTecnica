@@ -1,0 +1,58 @@
+<div class="min-h-screen bg-superdarkblue text-white flex justify-center pt-[8vh] px-4">
+  <form class="w-full max-w-md text-center">
+
+    <!-- Logo -->
+    <img src="assets/img/LOGO_MPG_COMP.png" alt="Logo" class="mx-auto w-32 sm:w-40 md:w-44 rounded-full object-cover" />
+
+    <!-- Títulos -->
+    <div class="mt-4 mb-6">
+      <h2 class="text-lg sm:text-xl font-Exo font-bold leading-tight">¡Regístrate!</h2>
+      <p class="text-sm sm:text-base font-Exo font-light leading-tight">Crea tu cuenta para comenzar</p>
+    </div>
+
+    <!-- Email -->
+    <div class="w-full mb-4 text-left">
+      <label for="email" class="block mb-1 text-sm font-Exo font-light text-white">
+        Correo electrónico *
+      </label>
+      <input
+        id="email"
+        type="email"
+        placeholder="ejemplo@correo.com"
+        class="w-full px-4 py-2 bg-inputbg border border-inputborder rounded-lg text-white placeholder-placeholderblue focus:outline-none focus:ring-2 focus:ring-inputborder font-Exo font-normal"
+      />
+    </div>
+
+    <!-- Género -->
+    <div class="w-full mb-4 text-left">
+      <label for="genero" class="block mb-1 text-sm font-Exo font-light text-white">
+        Género *
+      </label>
+      <select
+        id="genero"
+        class="w-full px-4 py-2 bg-inputbg border border-inputborder rounded-lg text-white focus:outline-none font-Exo"
+      >
+        <option selected disabled>Selecciona una opción</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="otro">Otro</option>
+      </select>
+    </div>
+
+    <!-- Botón de registro -->
+    <div class="w-full mt-10">
+      <button
+        type="button"
+        class="w-full py-2 rounded-full bg-gradient-to-b from-[#7894D2] to-[#385CAD] text-[#0A2440] font-Exo font-bold text-lg shadow-md hover:opacity-90 transition"
+      >
+        Registrar
+      </button>
+    </div>
+
+    <!-- Ya tienes cuenta -->
+    <div class="mt-6 text-sm font-Exo italic text-bluegreen">
+      ¿Ya tienes una cuenta? <a href="/login" class="underline">Inicia sesión</a>
+    </div>
+
+  </form>
+</div>
