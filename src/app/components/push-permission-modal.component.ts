@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonModal, IonButton } from '@ionic/angular/standalone';
+import { IonModal, IonButton, IonContent, IonHeader, IonToolbar, IonTitle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-push-permission-modal',
@@ -23,7 +23,7 @@ import { IonModal, IonButton } from '@ionic/angular/standalone';
     </ion-modal>
   `,
   standalone: true,
-  imports: [CommonModule, IonModal, IonButton]
+  imports: [CommonModule, IonModal, IonButton, IonContent, IonHeader, IonToolbar, IonTitle]
 })
 export class PushPermissionModalComponent {
   isOpen = false;
