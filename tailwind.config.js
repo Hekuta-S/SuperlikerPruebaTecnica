@@ -11,6 +11,9 @@ module.exports = {
         placeholderblue: "#385CAD", 
       },
     },
+    animation: {
+      'popup-in': 'popup-in 0.4s ease-out forwards',
+    },
   },
   plugins: [],
 };

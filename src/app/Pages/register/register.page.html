@@ -1,5 +1,6 @@
 <div class="min-h-screen bg-superdarkblue text-white flex justify-center pt-[8vh] px-4">
-  <form class="w-full max-w-md text-center">
+  <app-popup [showPopup]="showPopup" [nombre]="popupNombre" (click)="$event.stopPropagation()"></app-popup>
+  <form class="w-full max-w-md text-center" (ngSubmit)="onSubmit()" autocomplete="off">
 
     <!-- Logo -->
     <img src="assets/img/LOGO_MPG_COMP.png" alt="Logo" class="mx-auto w-32 sm:w-40 md:w-44 rounded-full object-cover" />
@@ -10,6 +11,38 @@
       <p class="text-sm sm:text-base font-Exo font-light leading-tight">Crea tu cuenta para comenzar</p>
     </div>
 
+    <!-- Nombre Completo -->
+    <div class="w-full mb-4 text-left">
+      <label for="nombreCompleto" class="block mb-1 text-sm font-Exo font-light text-white">
+        Nombre completo *
+      </label>
+      <input
+        id="nombreCompleto"
+        name="nombre-completo"
+        type="text"
+        [(ngModel)]="nombreCompleto"
+        required
+        placeholder="Juan Pérez"
+        class="w-full px-4 py-2 bg-inputbg border border-inputborder rounded-lg text-white placeholder-placeholderblue focus:outline-none focus:ring-2 focus:ring-inputborder font-Exo font-normal"
+      />
+    </div>
+
+    <!-- Código del Cliente -->
+    <div class="w-full mb-4 text-left">
+      <label for="codigoCliente" class="block mb-1 text-sm font-Exo font-light text-white">
+        Código del cliente *
+      </label>
+      <input
+        id="codigoCliente"
+        name="codigo-de-cliente"
+        type="text"
+        [(ngModel)]="codigoCliente"
+        required
+        placeholder="123456789"
+        class="w-full px-4 py-2 bg-inputbg border border-inputborder rounded-lg text-white placeholder-placeholderblue focus:outline-none focus:ring-2 focus:ring-inputborder font-Exo font-normal"
+      />
+    </div>
+
     <!-- Email -->
     <div class="w-full mb-4 text-left">
       <label for="email" class="block mb-1 text-sm font-Exo font-light text-white">
@@ -17,7 +50,10 @@
       </label>
       <input
         id="email"
+        name="email"
         type="email"
+        [(ngModel)]="email"
+        required
         placeholder="ejemplo@correo.com"
         class="w-full px-4 py-2 bg-inputbg border border-inputborder rounded-lg text-white placeholder-placeholderblue focus:outline-none focus:ring-2 focus:ring-inputborder font-Exo font-normal"
       />
@@ -30,19 +66,34 @@
       </label>
       <select
         id="genero"
+        name="genero"
+        [(ngModel)]="genero"
+        required
         class="w-full px-4 py-2 bg-inputbg border border-inputborder rounded-lg text-white focus:outline-none font-Exo"
       >
-        <option selected disabled>Selecciona una opción</option>
+        <option value="" disabled [selected]="!genero">Selecciona una opción</option>
         <option value="masculino">Masculino</option>
         <option value="femenino">Femenino</option>
         <option value="otro">Otro</option>
       </select>
+    <!-- Señal de error -->
+    <div *ngIf="error" class="w-full text-center text-red-400 font-bold my-2">
+      {{ error }}
+    </div>
+    <!-- Señal de éxito -->
+    <div *ngIf="success" class="w-full text-center text-green-400 font-bold my-2">
+      {{ success }}
+    </div>
+    <!-- Loading -->
+    <div *ngIf="loading" class="w-full text-center my-2">
+      <span class="animate-spin">⏳</span>
+    </div>
     </div>
 
     <!-- Botón de registro -->
     <div class="w-full mt-10">
       <button
-        type="button"
+        type="submit"
         class="w-full py-2 rounded-full bg-gradient-to-b from-[#7894D2] to-[#385CAD] text-[#0A2440] font-Exo font-bold text-lg shadow-md hover:opacity-90 transition"
       >
         Registrar

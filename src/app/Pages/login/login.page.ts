@@ -29,8 +29,14 @@ export class LoginPage implements OnInit {
     this.loginService.login(this.username, this.password).subscribe({
       next: (res) => {
         this.loading = false;
-        // TODO: handle successful login (e.g., navigate to home, store token, etc.)
-        this.router.navigate(['/home']);
+        if (res && res.ok === 'true' && res.token && res.participant) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('name', res.participant.name);
+          localStorage.setItem('uid', res.participant.uid);
+          this.router.navigate(['/home']);
+        } else {
+          this.error = res.message || 'Error desconocido en el login';
+        }
       },
       error: (err) => {
         this.loading = false;
