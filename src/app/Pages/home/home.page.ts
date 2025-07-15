@@ -78,7 +78,7 @@ toggleSidebar() {
     this.loadUserData();
     this.obtenerKpis();
     this.startAnimations();
-    this.solicitarPermisoPushSiEsPrimeraVez();
+    // La solicitud de permiso push debe llamarse solo después de login exitoso, no aquí
   }
 
   solicitarPermisoPushSiEsPrimeraVez() {
