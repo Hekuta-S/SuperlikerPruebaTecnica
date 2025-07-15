@@ -1,0 +1,292 @@
+<app-push-permission-modal></app-push-permission-modal>
+<div class="min-h-[100vh] bg-[#0E2F61] text-white px-4 sm:px-6 md:px-10 pb-32 overflow-auto" [attr.inert]="pushModal?.isOpen ? '' : null">
+
+    <!-- NAVBAR -->
+<nav class="fixed top-0 left-0 w-full bg-[#385CAD] rounded-b-3xl py-4 px-4 sm:px-6 flex items-center justify-between z-50"
+  style="box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);"
+>
+  <!-- Sección izquierda: Botón menú -->
+  <div class="flex items-center">
+    <button (click)="toggleSidebar()">
+      <img src="assets/icon/menu-icon.png" alt="Menú" class="w-6 h-6" />
+    </button>
+  </div>
+
+  <!-- Sección central: Datos del usuario -->
+  <div class="flex flex-col items-center leading-tight text-xs font-Exo text-white mt-4">
+    <p class="text-sm font-Exo italic">{{ name }}</p>
+    <p class="font-Exo italic">Cod. Modelo: <span class="font-bold italic">{{ uid }}</span></p>
+
+    <!-- Select con etiqueta adentro -->
+    <div class="bg-[#0A2440] text-white font-demibold italic rounded-full px-3 py-1 text-xs border-none outline-none appearance-none mt-2 flex items-center gap-1">
+      <span class="font-Exo italic text-[#BFD4FF]">Modelorama:</span>
+      <select class="bg-transparent text-white font-Exo italic text-xs border-none outline-none appearance-none">
+        <option class="font-bold italic">Nuevo León</option>
+        <option class="font-bold italic">Coahuila</option>
+        <option class="font-bold italic">Baja Sur</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Sección derecha: imagen de perfil -->
+  <div class="mt-1">
+    <img src="assets/img/LOGO_MPG_COMP.png" alt="Perfil" class="h-12 w-auto object-cover" />
+  </div>
+</nav>
+
+<!-- Sidebar lateral -->
+<div
+  class="fixed top-0 left-0 h-full w-64 bg-[#0A2440] text-white z-50 shadow-lg transform transition-transform duration-300 ease-in-out"
+  [ngClass]="{ 'translate-x-0': isSidebarOpen, '-translate-x-full': !isSidebarOpen }"
+>
+  <div class="p-4 border-b border-white/20 flex items-center justify-between">
+    <p class="font-Exo font-bold text-lg">Menú</p>
+    <button (click)="toggleSidebar()">
+      <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <path
+          fill-rule="evenodd"
+          d="M10 8.586L15.293 3.293a1 1 0 111.414 1.414L11.414 10l5.293 5.293a1 1 0 01-1.414 1.414L10 11.414l-5.293 5.293a1 1 0 01-1.414-1.414L8.586 10 3.293 4.707a1 1 0 011.414-1.414L10 8.586z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <ul class="mt-4 space-y-3 px-4 font-Exo text-sm">
+    <li><a href="#" class="block py-2 hover:text-[#FFC600]">Inicio</a></li>
+    <li><a href="#" class="block py-2 hover:text-[#FFC600]">Perfil</a></li>
+    <li><a href="#" class="block py-2 hover:text-[#FFC600]">Configuración</a></li>
+    <li><button (click)="onLogout()" class="block py-2 hover:text-[#FFC600] w-full text-left">Cerrar sesión</button></li>
+  </ul>
+</div>
+
+
+
+    <!-- Espaciador para que el contenido no quede debajo del navbar -->
+    <div class="h-24"></div>
+
+    <!-- RECTÁNGULO CON IMAGEN -->
+    <!-- Rectángulo con imagen responsive -->
+<div class="w-full max-w-xl mx-auto bg-black rounded-3xl border-4 border-[#385CAD] overflow-hidden mb-8 mt-7">
+  <img src="assets/img/LOGO_PROP.png" alt="Imagen destacada" class="w-full h-auto object-cover aspect-[3/1]" />
+</div>
+
+
+  <!-- Contenedor del menú con posición relativa -->
+  <div class="w-full max-w-xl mx-auto flex justify-center mt-6">
+    <div class="relative bg-[#0A2440] rounded-full flex p-1 gap-1 shadow-inner shadow-black min-w-[300px] w-full max-w-xl mx-auto">
+
+      <!-- Selector amarillo animado -->
+      <div
+        class="absolute rounded-full bg-gradient-to-b from-[#FFC600] to-[#FF9015] shadow-md transition-all duration-300 ease-in-out h-3/4 top-1/5 left-1 right-1"
+        [style.width.%]="(100 / tabs.length) - 2"
+        [style.left.%]="((100 / tabs.length) * selectedTab) + 1"
+      ></div>
+
+      <!-- Botones del menú -->
+      <button
+        *ngFor="let tab of tabs; let i = index"
+        (click)="selectedTab = i"
+        class="flex-1 relative z-10 px-4 py-2 rounded-full font-Exo font-demibold text-sm transition duration-200"
+        [ngClass]="{
+          'text-[#0A2440]': selectedTab === i,
+          'text-[#7894D2]': selectedTab !== i
+        }"
+      >
+        {{ tab }}
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Contenedor extra debajo del menú -->
+  <div class="w-full max-w-xl mx-auto mt-4 bg-[#385CAD]/50 border-2 border-[#385CAD] rounded-3xl p-6">
+    <div class="flex flex-col items-start">
+      <h2 class="text-[#FFC600] font-Exo font-demibold text-lg mb-2">Metas por volumen</h2>
+      <p class="text-[#F1F1FF] font-Exo text-sm mb-2">Estas son las principales metas por volumen que debes cumplir al mes.</p>
+      <p class="text-[#7894D2] font-Exo italic text-xs">A medida que avanzas en cada una, vas sumando al porcentaje de cumplimiento total para obtener tu bonificación.</p>
+    </div>
+  <!-- PROGRESS BAR AVANZADA -->
+  <div class="relative w-full mt-4">
+    <!-- Fondo de barra -->
+    <div class="w-full h-5 bg-[#1c355e] rounded-full shadow-[inset_0_2px_6px_#A2FF80] shadow-[#0A2440]"></div>
+
+    <!-- Relleno con animación + sombras -->
+    <div
+      class="absolute top-0 left-0 h-5 bg-[#71BA1B] rounded-full 
+            shadow-[inset_0_2px_6px_#A2FF80] shadow-[0_4px_6px_#0A2440] 
+            transition-all duration-500"
+      [style.width.%]="horizontalProgress"
+    ></div>
+
+    <!-- Burbuja del progreso actual -->
+    <div
+      class="absolute top-1/2 -translate-y-1/2 w-7 h-7 bg-[#71BA1B] rounded-full flex items-center justify-center 
+            text-white text-xs font-bold 
+            shadow-[inset_0_2px_6px_#A2FF80] shadow-[0_4px_6px_#0A2440] 
+            transition-all duration-500"
+      [style.left.%]="horizontalProgress"
+      [style.transform]="'translate(-50%, -50%)'"
+    >
+      {{ horizontalProgress }}%
+    </div>
+
+    <!-- Burbuja final (100%) -->
+    <div
+      class="absolute top-1/2 right-0 -translate-y-1/2 w-9 h-9 bg-[#71BA1B] rounded-full flex items-center justify-center 
+            text-white text-xs font-bold 
+            shadow-[inset_0_2px_6px_#A2FF80] shadow-[0_4px_6px_#0A2440]"
+    >
+      100%
+    </div>
+  </div>
+
+  <!-- FILTRO A LA DERECHA -->
+  <div class="flex justify-end mt-4">
+      <div class="flex items-center gap-2 font-Exo text-xs">
+        <label class="italic text-[#7894D2]">Filtrar por:</label>
+        <div class="relative">
+          <select
+            class="appearance-none bg-white text-[#385CAD] font-demibold font-Exo text-xs px-4 py-1 pr-8 rounded-full border border-[#0F345C] focus:outline-none"
+            [(ngModel)]="filtroVolumen"
+            (ngModelChange)="onFiltroVolumenChange($event)"
+          >
+            <option value="cartones">Cartones</option>
+            <option value="hectolitros">Hectolitros</option>
+          </select>
+          <!-- Flecha personalizada -->
+          <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center">
+            <svg class="w-4 h-4 text-[#385CAD]" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.586l3.71-4.356a.75.75 0 111.14.976l-4.25 5a.75.75 0 01-1.14 0l-4.25-5a.75.75 0 01.02-1.06z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+
+  <!-- CONTENEDOR DE CÍRCULOS -->
+  <div class="bg-[#0A2440] rounded-3xl p-6 flex flex-row justify-center gap-4 mt-3">
+    <div
+      *ngFor="let item of animatedProgressList; let i = index"
+      class="flex flex-col items-center w-1/5"
+    >
+      <!-- CÍRCULO -->
+      <div
+        class="relative w-16 h-16 rounded-full drop-shadow-[0_0_10px_var(--shadow-color)]"
+        [ngStyle]="{ '--shadow-color': shadowColors[i] }"
+      >
+        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient [attr.id]="'grad' + i" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" [attr.stop-color]="gradientColors[i][0]" />
+              <stop offset="100%" [attr.stop-color]="gradientColors[i][1]" />
+            </linearGradient>
+          </defs>
+
+          <!-- BASE -->
+          <circle cx="60" cy="60" r="36" stroke="#2a3e5c" stroke-width="8" fill="transparent" />
+
+          <!-- PROGRESO -->
+          <circle
+            cx="60"
+            cy="60"
+            r="36"
+            [attr.stroke-dasharray]="circumference"
+            [attr.stroke-dashoffset]="getOffset(item)"
+            [attr.stroke]="'url(#grad' + i + ')'"
+            stroke-width="8"
+            stroke-linecap="round"
+            fill="transparent"
+            style="transition: stroke-dashoffset 0.3s linear"
+          />
+        </svg>
+
+        <!-- TEXTO INTERIOR -->
+        <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-white font-Exo">
+          {{ item }}%
+        </div>
+      </div>
+
+      <!-- TÍTULO DEBAJO -->
+      <p class="text-[10px] text-white font-Exo mt-1 text-center leading-tight">
+        {{
+          i === 0
+            ? 'Volumen'
+            : i === 1
+            ? 'Volumen Retornable'
+            : i === 2
+            ? 'Above Core + Beyond Beer'
+            : 'Marketplace'
+        }}
+      </p>
+    </div>
+  </div>
+
+
+
+  </div>
+
+
+
+<!-- NAVBAR FLOTANTE INFERIOR -->
+<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-xl bg-[#F1F1FF] backdrop-blur-md rounded-3xl px-2 py-2 flex justify-between items-center shadow-xl z-50">
+
+  <button
+    class="flex-1 mx-1"
+    (click)="selectedTab = 0"
+  >
+    <div
+      class="w-full flex flex-col items-center justify-center py-2 rounded-2xl transition-all duration-300"
+      [ngClass]="{
+        'bg-gradient-to-b from-[#FFC600] to-[#FF9015] text-[#0A2440]': selectedTab === 0,
+        'text-[#0F345C]': selectedTab !== 0
+      }"
+    >
+      <img src="assets/icon/bonicon.png" class="w-auto h-5 mb-1" alt="Bonificación" />
+      <span class="text-xs font-Exo">Bonificación</span>
+    </div>
+  </button>
+
+  <button
+    class="flex-1 mx-1"
+    (click)="selectedTab = 1"
+  >
+    <div
+      class="w-full flex flex-col items-center justify-center py-2 rounded-2xl transition-all duration-300"
+      [ngClass]="{
+        'bg-gradient-to-b from-[#FFC600] to-[#FF9015] text-[#0A2440]': selectedTab === 1,
+        'text-[#0F345C]': selectedTab !== 1
+      }"
+    >
+      <img src="assets/icon/resumeicon.png" class="w-auto h-5 mb-1" alt="Resumen" />
+      <span class="text-xs font-Exo">Resumen</span>
+    </div>
+  </button>
+
+  <button
+    class="flex-1 mx-1"
+    (click)="goToLogin()"
+  >
+    <div
+      class="w-full flex flex-col items-center justify-center py-2 rounded-2xl transition-all duration-300"
+      [ngClass]="{
+        'bg-gradient-to-b from-[#FFC600] to-[#FF9015] text-[#0A2440]': selectedTab === 2,
+        'text-[#0F345C]': selectedTab !== 2
+      }"
+    >
+      <img src="assets/icon/autoicon.png" class="w-auto h-5 mb-1" alt="Autoejecución" />
+      <span class="text-xs font-Exo">Autoejecución</span>
+    </div>
+  </button>
+</div>
+
+
+    
+    
+  </div>

@@ -1,0 +1,18 @@
+<div class="relative w-full h-screen bg-[#0A2440] flex items-center justify-center overflow-hidden">
+  <!-- Imagen central con fade-in -->
+  <img
+    src="assets/img/LOGO_MPG_COMP.png"
+    alt="Logo"
+    class="w-40 h-auto opacity-0 animate-fade-in z-10"
+  />
+
+  <!-- Abeja animada -->
+  <div
+    #bee
+    class="absolute w-10 h-10 transition-transform duration-[5000ms] ease-in-out"
+    [ngStyle]="{ transform: beeTransform }"
+  >
+    <div class="text-yellow-300 font-extrabold text-xl leading-none">🐝</div>
+    <div class="text-white text-xs tracking-widest mt-[-8px]">- - -</div>
+  </div>
+</div>
