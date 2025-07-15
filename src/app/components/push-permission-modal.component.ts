@@ -5,17 +5,21 @@ import { IonModal, IonButton } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-push-permission-modal',
   template: `
-    <ion-modal [isOpen]="isOpen" cssClass="push-modal-custom">
-      <div class="flex items-center justify-center min-h-screen">
-        <div class="bg-[#1c355e] rounded-2xl shadow-2xl p-8 w-full max-w-xs mx-auto text-center border-4 border-[#385CAD]">
-          <h2 class="text-lg font-bold mb-2 text-[#FFC600]">Permitir notificaciones</h2>
-          <p class="mb-4 text-white">¿Deseas recibir notificaciones push para estar al tanto de novedades y alertas importantes?</p>
-          <div class="flex justify-center gap-4 mt-6">
-            <ion-button color="primary" (click)="onAccept()">Permitir</ion-button>
-            <ion-button color="medium" (click)="onDecline()">No, gracias</ion-button>
+    <ion-modal [isOpen]="isOpen">
+      <ion-content>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Permitir notificaciones</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <p>¿Deseas recibir notificaciones push para estar al tanto de novedades y alertas importantes?</p>
+          <div class="ion-text-center ion-margin-top">
+            <ion-button expand="block" color="primary" (click)="onAccept()">Permitir</ion-button>
+            <ion-button expand="block" color="medium" (click)="onDecline()">No, gracias</ion-button>
           </div>
-        </div>
-      </div>
+        </ion-content>
+      </ion-content>
     </ion-modal>
   `,
   standalone: true,
